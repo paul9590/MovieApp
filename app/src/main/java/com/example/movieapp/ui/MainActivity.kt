@@ -14,8 +14,11 @@ class MainActivity : AppCompatActivity() {
     private val movieRecyclerAdapter = MovieRecyclerAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var calling = false
         val mBinding = ActivityMainBinding.inflate(layoutInflater).apply {
             btnSearch.setOnClickListener {
+                calling = true
+                movieRecyclerAdapter.resetData()
                 movieViewModel.getMovieList(editSearch.text.toString())
             }
 
@@ -25,7 +28,9 @@ class MainActivity : AppCompatActivity() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     if(recyclerView.canScrollVertically(-1)) {
-                        movieViewModel.getMoreMovieList(movieRecyclerAdapter.itemCount)
+                        if(calling) return
+                        calling = true
+                        movieViewModel.getMoreMovieList(movieRecyclerAdapter.itemCount + 1)
                     }
                 }
             })
@@ -33,10 +38,12 @@ class MainActivity : AppCompatActivity() {
 
 
         movieViewModel.movieList.observe(this) {
+            calling = false
             movieViewModel.movieList.value?.let { movieRecyclerAdapter.setData(it)}
         }
 
         movieViewModel.moreMovieList.observe(this) {
+            calling = false
             movieViewModel.moreMovieList.value?.let { movieRecyclerAdapter.addData(it)}
         }
 

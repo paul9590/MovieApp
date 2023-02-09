@@ -34,6 +34,10 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.MovieView
         movieList += newItems
         notifyItemInserted(last)
     }
+    internal fun resetData() {
+        movieList = ArrayList()
+        notifyDataSetChanged()
+    }
 
 
     override fun getItemCount(): Int {
