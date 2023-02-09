@@ -1,25 +1,42 @@
 package com.example.movieapp.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.ActivityMainBinding
+import com.example.movieapp.db.Recent
 import com.example.movieapp.recycler.MovieRecyclerAdapter
 import com.example.movieapp.vm.MovieViewModel
+import com.hang.android.krhangman.db.DBRepository
 
+
+const val REQUEST_CODE = 100
 class MainActivity : AppCompatActivity() {
 
     private val movieViewModel = MovieViewModel()
     private val movieRecyclerAdapter = MovieRecyclerAdapter()
+
+    private val db = DBRepository.get()
+
+    private val mBinding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater)}
+
+    private var calling = false
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
-        var calling = false
-        val mBinding = ActivityMainBinding.inflate(layoutInflater).apply {
+
+        mBinding.apply {
+
             btnSearch.setOnClickListener {
-                calling = true
-                movieRecyclerAdapter.resetData()
-                movieViewModel.getMovieList(editSearch.text.toString())
+                search(editSearch.text.toString())
+            }
+            btnRecent.setOnClickListener {
+                val intent = Intent(applicationContext, RecentActivity::class.java)
+                startActivityForResult(intent, REQUEST_CODE)
             }
 
             recyclerMovie.adapter = movieRecyclerAdapter
@@ -48,5 +65,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContentView(mBinding.root)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            val inputText = data!!.getStringExtra("search")!!
+            mBinding.editSearch.setText(inputText)
+            search(inputText)
+        }
+
+    }
+
+    private fun search(query: String) {
+        calling = true
+        movieRecyclerAdapter.resetData()
+        movieViewModel.getMovieList(query)
+        db.addRecent(Recent(query))
     }
 }

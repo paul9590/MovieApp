@@ -6,6 +6,7 @@ import com.example.movieapp.api.MovieApiFetcher
 import com.example.movieapp.model.Movie
 
 class MovieViewModel: ViewModel() {
+    private val api = MovieApiFetcher.get()
     private val _movieList = MutableLiveData<ArrayList<Movie>>()
     val movieList: MutableLiveData<ArrayList<Movie>>
         get() = _movieList
@@ -17,12 +18,12 @@ class MovieViewModel: ViewModel() {
     private lateinit var recentQuery: String
 
     fun getMovieList(query: String) {
-        MovieApiFetcher.get().getMovieList(_movieList, query)
+        api.getMovieList(_movieList, query)
         recentQuery = query
 
     }
 
     fun getMoreMovieList(start: Int) {
-        MovieApiFetcher.get().getMovieList(_moreMovieList, recentQuery, start)
+        api.getMovieList(_moreMovieList, recentQuery, start)
     }
 }
