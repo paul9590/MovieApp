@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             }
             btnRecent.setOnClickListener {
                 val intent = Intent(applicationContext, RecentActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 startActivityForResult(intent, REQUEST_CODE)
             }
 
