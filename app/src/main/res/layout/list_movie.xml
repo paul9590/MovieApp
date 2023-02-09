@@ -24,6 +24,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:src=""
             tools:background="@color/black" />
 
         <TextView
@@ -70,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_4"
-            android:text="@{movie.date}"
+            android:text="@{movie.pubDate}"
             app:layout_constraintBottom_toBottomOf="@id/date"
             app:layout_constraintLeft_toRightOf="@id/date"
             app:layout_constraintTop_toTopOf="@id/date" />
@@ -80,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_4"
-            android:text="@{movie.rating}"
+            android:text="@{movie.userRating}"
             app:layout_constraintBottom_toBottomOf="@id/rating"
             app:layout_constraintLeft_toRightOf="@id/rating"
             app:layout_constraintTop_toTopOf="@id/rating" />

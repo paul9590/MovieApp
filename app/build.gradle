@@ -4,6 +4,12 @@ plugins {
     id 'kotlin-kapt'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def naver_client_id = properties.getProperty("naver_client_id")
+def naver_key = properties.getProperty("naver_key")
+def base_url = properties.getProperty("base_url")
+
 android {
     namespace 'com.example.movieapp'
     compileSdk 33
@@ -16,11 +22,19 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "NAVER_CLIENT_ID", properties['naver_client_id']
+        buildConfigField "String", "NAVER_KEY", properties['naver_key']
+        buildConfigField "String", "BASE_URL", properties['base_url']
     }
 
     dataBinding{
         enabled = true
     }
+
+    viewBinding{
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
