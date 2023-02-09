@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">MovieApp</string>
+
+    <!--activity_main-->
+    <string name="search">검색</string>
+    <string name="recent_search">최근검색</string>
+
+
+    <!--list_movie-->
+    <string name="title">제목 : </string>
+    <string name="date">출시 : </string>
+    <string name="rating">평점 : </string>
+
+    <!--fragment_recent-->
+    <string name="recent">최근 검색 이력</string>
+
+
+    <!--dimen-->
+    <dimen name="img_size">80dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="corner_8">8dp</dimen>
+    <dimen name="stroke_2">1dp</dimen>
+
 </resources>

@@ -4,15 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/editSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btnSearch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/search"
+        app:layout_constraintBottom_toBottomOf="@id/editSearch"
+        app:layout_constraintLeft_toRightOf="@id/editSearch"
+        app:layout_constraintTop_toTopOf="@id/editSearch" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRecent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        app:layout_constraintBottom_toBottomOf="@id/btnSearch"
+        app:layout_constraintLeft_toRightOf="@id/btnSearch"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnSearch" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMovie"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
