@@ -2,7 +2,7 @@ package com.example.movieapp.api
 
 import com.example.movieapp.model.Movie
 
-data class ResultGetSearchNews(
+data class ResultMovieList(
     var lastBuildDate: String = "",
     var total: Int = 0,
     var start: Int = 0,

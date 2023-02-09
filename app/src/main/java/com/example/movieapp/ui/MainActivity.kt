@@ -21,12 +21,25 @@ class MainActivity : AppCompatActivity() {
 
             recyclerMovie.adapter = movieRecyclerAdapter
             recyclerMovie.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+            recyclerMovie.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if(recyclerView.canScrollVertically(-1)) {
+                        movieViewModel.getMoreMovieList(movieRecyclerAdapter.itemCount)
+                    }
+                }
+            })
         }
 
 
         movieViewModel.movieList.observe(this) {
             movieViewModel.movieList.value?.let { movieRecyclerAdapter.setData(it)}
         }
+
+        movieViewModel.moreMovieList.observe(this) {
+            movieViewModel.moreMovieList.value?.let { movieRecyclerAdapter.addData(it)}
+        }
+
         setContentView(mBinding.root)
     }
 }

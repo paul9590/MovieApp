@@ -11,5 +11,6 @@ interface MovieApi {
     fun getSearchResult(
         @Header("X-Naver-Client-Id") clientId: String,
         @Header("X-Naver-Client-Secret") clientSecret: String,
-        @Query("query") query: String): Call<ResultGetSearchNews>
+        @Query("query") query: String,
+        @Query("start") start: Int): Call<ResultMovieList>
 }

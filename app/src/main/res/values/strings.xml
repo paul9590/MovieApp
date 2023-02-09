@@ -23,4 +23,6 @@
     <dimen name="corner_8">8dp</dimen>
     <dimen name="stroke_2">1dp</dimen>
 
+    <string name="default_image_url">https://ssl.pstatic.net/static/movie/2012/06/dft_img77x110_1.png</string>
+
 </resources>

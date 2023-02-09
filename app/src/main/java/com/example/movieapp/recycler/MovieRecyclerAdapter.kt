@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.example.movieapp.R
 import com.example.movieapp.databinding.ListMovieBinding
 import com.example.movieapp.model.Movie
 
@@ -25,9 +26,15 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.MovieView
     }
 
     internal fun setData(newItems: ArrayList<Movie>) {
-        this.movieList = newItems
+        movieList = newItems
         notifyDataSetChanged()
     }
+    internal fun addData(newItems: ArrayList<Movie>) {
+        val last = movieList.size
+        movieList += newItems
+        notifyItemInserted(last)
+    }
+
 
     override fun getItemCount(): Int {
         return movieList.size
@@ -37,16 +44,32 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.MovieView
         fun bind(movie: Movie) {
             mBinding.apply {
                 setMovie(movie)
-                Glide.with(root)
-                    .load(movie.image)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(imgMovie)
-
 
                 root.setOnClickListener {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
                     root.context.startActivity(intent)
                 }
+            }
+            if(movie.image.isBlank()) {
+                loadDefaultImgae()
+            }else {
+                loadImage(movie.image)
+            }
+        }
+        private fun loadImage(image: String) {
+            mBinding.apply {
+                Glide.with(root)
+                    .load(image)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imgMovie)
+            }
+        }
+        private fun loadDefaultImgae() {
+            mBinding.apply {
+                Glide.with(root)
+                    .load(root.context.getString(R.string.default_image_url))
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(imgMovie)
             }
         }
     }
