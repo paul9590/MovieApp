@@ -11,22 +11,24 @@ import com.example.movieapp.recycler.RecentRecyclerAdapter
 
 class RecentActivity : AppCompatActivity() {
 
+    private val db = DBRepository.get()
+    private val recentRecyclerAdapter = RecentRecyclerAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val recentRecyclerAdapter = RecentRecyclerAdapter()
         val mBinding = ActivityRecentBinding.inflate(layoutInflater).apply {
             recyclerRecent.adapter = recentRecyclerAdapter
             recyclerRecent.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
         }
-        val db = DBRepository.get()
 
+        observeData()
+        setContentView(mBinding.root)
+    }
 
+    private fun observeData() {
         db.getRecent().observe(this) {
             recentRecyclerAdapter.setData(it as ArrayList<Recent>)
         }
-
-        setContentView(mBinding.root)
     }
 
     override fun onPause() {

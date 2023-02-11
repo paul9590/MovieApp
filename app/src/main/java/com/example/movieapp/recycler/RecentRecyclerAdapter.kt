@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.ListRecentBinding
@@ -12,11 +11,9 @@ import com.example.movieapp.db.Recent
 
 class RecentRecyclerAdapter : RecyclerView.Adapter<RecentRecyclerAdapter.RecentViewHolder>() {
     private var recentList = ArrayList<Recent>()
-    private lateinit var view: View
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentViewHolder {
-        view = parent
-        val mBinding = ListRecentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RecentViewHolder(mBinding)
+        return RecentViewHolder(ListRecentBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: RecentViewHolder, position: Int) {
@@ -38,7 +35,7 @@ class RecentRecyclerAdapter : RecyclerView.Adapter<RecentRecyclerAdapter.RecentV
             mBinding.root.setOnClickListener {
                 val activity = mBinding.root.context as Activity
                 val intent = Intent()
-                intent.putExtra("search", recent.name)
+                intent.putExtra("recentKeyword", recent.name)
                 activity.setResult(RESULT_OK, intent)
                 activity.finish()
             }

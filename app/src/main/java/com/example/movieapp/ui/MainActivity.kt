@@ -17,14 +17,11 @@ import com.example.movieapp.vm.MovieViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val movieViewModel = MovieViewModel()
-    private val movieRecyclerAdapter = MovieRecyclerAdapter()
-
-    private val db = DBRepository.get()
-
     private val mBinding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater)}
-
-    private var calling = false
+    private val movieViewModel = MovieViewModel()
+    private val db = DBRepository.get()
+    private val movieRecyclerAdapter = MovieRecyclerAdapter()
+    private var isCalling = false
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -32,17 +29,17 @@ class MainActivity : AppCompatActivity() {
         val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 result ->
             if(result.resultCode == Activity.RESULT_OK) {
-                val inputText = result.data!!.getStringExtra("search")!!
+                val inputText = result.data!!.getStringExtra("recentKeyword")!!
                 mBinding.editSearch.setText(inputText)
                 search(inputText)
             }
         }
 
         mBinding.apply {
-
             btnSearch.setOnClickListener {
                 search(editSearch.text.toString())
             }
+
             btnRecent.setOnClickListener {
                 val intent = Intent(applicationContext, RecentActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -55,30 +52,32 @@ class MainActivity : AppCompatActivity() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     if(recyclerView.canScrollVertically(-1)) {
-                        if(calling) return
-                        calling = true
+                        if(isCalling) return
+                        isCalling = true
                         movieViewModel.getMoreMovieList(movieRecyclerAdapter.itemCount + 1)
                     }
                 }
             })
         }
 
+        observeData()
+        setContentView(mBinding.root)
+    }
 
+    private fun observeData() {
         movieViewModel.movieList.observe(this) {
-            calling = false
+            isCalling = false
             movieViewModel.movieList.value?.let { movieRecyclerAdapter.setData(it)}
         }
 
         movieViewModel.moreMovieList.observe(this) {
-            calling = false
+            isCalling = false
             movieViewModel.moreMovieList.value?.let { movieRecyclerAdapter.addData(it)}
         }
-
-        setContentView(mBinding.root)
     }
 
     private fun search(query: String) {
-        calling = true
+        isCalling = true
         movieRecyclerAdapter.resetData()
         movieViewModel.getMovieList(query)
         db.addRecent(Recent(query))
