@@ -1,7 +1,6 @@
 package com.example.movieapp.api
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.movieapp.BuildConfig
 import com.example.movieapp.model.Movie
@@ -28,8 +27,8 @@ class MovieApiFetcher {
 
     fun getMovieList(movieList: MutableLiveData<ArrayList<Movie>>, query: String, start: Int = 1) {
         val service = movieApi.getSearchResult(NAVER_CLIENT, NAVER_KEY, query, start)
-        service.enqueue(object : Callback<ResultMovieList> {
-            override fun onResponse(call: Call<ResultMovieList>, response: Response<ResultMovieList>) {
+        service.enqueue(object : Callback<MovieResponse> {
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if(response.isSuccessful){
                     Log.e("receive", response.body()!!.toString())
                     if(response.body()!!.total < start) return
@@ -37,7 +36,7 @@ class MovieApiFetcher {
                 }
             }
 
-            override fun onFailure(call: Call<ResultMovieList>, t: Throwable) {
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
 
             }
         })

@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.ActivityRecentBinding
+import com.example.movieapp.db.DBRepository
 import com.example.movieapp.db.Recent
 import com.example.movieapp.recycler.RecentRecyclerAdapter
-import com.hang.android.krhangman.db.DBRepository
 
 class RecentActivity : AppCompatActivity() {
 

@@ -1,10 +1,9 @@
-package com.hang.android.krhangman.db
+package com.example.movieapp.db
+
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
-import com.example.movieapp.db.Recent
 import kotlinx.coroutines.*
 
 private const val DATABASE_NAME = "movieDB"

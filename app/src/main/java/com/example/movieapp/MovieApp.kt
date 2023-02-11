@@ -2,7 +2,7 @@ package com.example.movieapp
 
 import android.app.Application
 import com.example.movieapp.api.MovieApiFetcher
-import com.hang.android.krhangman.db.DBRepository
+import com.example.movieapp.db.DBRepository
 
 class MovieApp: Application() {
     override fun onCreate() {

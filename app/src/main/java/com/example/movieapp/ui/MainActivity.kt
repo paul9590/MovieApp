@@ -3,15 +3,14 @@ package com.example.movieapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.ActivityMainBinding
+import com.example.movieapp.db.DBRepository
 import com.example.movieapp.db.Recent
 import com.example.movieapp.recycler.MovieRecyclerAdapter
 import com.example.movieapp.vm.MovieViewModel
-import com.hang.android.krhangman.db.DBRepository
 
 
 const val REQUEST_CODE = 100

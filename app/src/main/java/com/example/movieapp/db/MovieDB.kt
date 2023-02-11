@@ -1,9 +1,7 @@
-package com.hang.android.krhangman.db
+package com.example.movieapp.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.movieapp.db.Recent
-import com.example.movieapp.db.RecentDao
 
 @Database(entities = [Recent::class], version = 1)
 
