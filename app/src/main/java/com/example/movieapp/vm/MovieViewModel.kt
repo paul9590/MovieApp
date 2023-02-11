@@ -20,7 +20,6 @@ class MovieViewModel: ViewModel() {
     fun getMovieList(query: String) {
         api.getMovieList(_movieList, query)
         recentQuery = query
-
     }
 
     fun getMoreMovieList(start: Int) {

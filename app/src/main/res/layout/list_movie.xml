@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.text.Html"/>
+
+        <import type="android.text.Html" />
+
         <variable
             name="movie"
             type="com.example.movieapp.model.Movie" />
@@ -59,12 +61,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:gravity="start"
             android:text="@{Html.fromHtml(movie.title)}"
             app:layout_constraintBottom_toBottomOf="@id/title"
             app:layout_constraintLeft_toRightOf="@id/title"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginEnd="@dimen/margin_24"
-            android:gravity="start"
             app:layout_constraintTop_toTopOf="@id/title" />
 
         <TextView
@@ -72,11 +74,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_4"
+            android:gravity="start"
             android:text="@{movie.pubDate}"
             app:layout_constraintBottom_toBottomOf="@id/date"
             app:layout_constraintLeft_toRightOf="@id/date"
             app:layout_constraintRight_toRightOf="@id/txtTitle"
-            android:gravity="start"
             app:layout_constraintTop_toTopOf="@id/date" />
 
         <TextView
@@ -84,13 +86,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_4"
+            android:gravity="start"
             android:text="@{movie.userRating}"
             app:layout_constraintBottom_toBottomOf="@id/rating"
             app:layout_constraintLeft_toRightOf="@id/rating"
             app:layout_constraintRight_toRightOf="@id/txtTitle"
-            android:gravity="start"
             app:layout_constraintTop_toTopOf="@id/rating" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
