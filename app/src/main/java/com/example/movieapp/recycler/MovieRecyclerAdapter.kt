@@ -34,7 +34,7 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.MovieView
     }
 
     internal fun resetData() {
-        movieList = ArrayList()
+        movieList.clear()
         notifyDataSetChanged()
     }
 
